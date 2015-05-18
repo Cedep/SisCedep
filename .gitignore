@@ -12,7 +12,11 @@ config/env/local.js
 .sass-cache/
 npm-debug.log
 node_modules/
+<<<<<<< HEAD
 public/scripts/
+=======
+public/lib/
+>>>>>>> b1ff3ea4b1c96cf56e1c183e0d5a297c73cc914a
 app/tests/coverage/
 .bower-*/
 .idea/
