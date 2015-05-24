@@ -4,11 +4,34 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql      = require('mysql');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'me',
+  password : 'secret'
+});
+
+/*
+connection.connect();
+connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+ 
+  console.log('The solution is: ', rows[0].solution);
+});
+connection.end();
+*/
+
+
+//var routes = require('./routes/index');
+var alunos = require('./routes/api/v1/alunos');
 
 var app = express();
+
+//TODO: Evoluir para um banco de dados real
+var db = {
+  alunos: []
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +45,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// Make our db accessible to our router
+app.use(function(req, res, next){
+    req.db = db;
+    next();
+});
+
+//app.use('/', routes);
+app.use('/api/v1/alunos', alunos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

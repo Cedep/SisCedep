@@ -1,10 +1,14 @@
 <!DOCTYPE HTML>
-<html lang="pt-BR">
+<html lang="pt-BR" ng-app= "indexApp">
     <head>
         <meta charset="UTF-8">     
+        <script src="/scripts/vendor/angular/angular.js"></script>
+        <script src="/scripts/vendor/angular-route/angular-route.js"></script>
+        <script src="index-app.js"></script>
+        <script src="index-controllers.js"></script>
         <title>SISCedep</title>
     </head>
     <body>
-        <h1>Pagina inicial do SISCedep</h1>
-    </body>
+  		<div ng-view></div>
+	</body>
 </html>
