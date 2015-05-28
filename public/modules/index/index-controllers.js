@@ -1,52 +1,27 @@
 (function (angular, undefined) {
     'use strict';
     
-    angular.module('indexControllers', [])
+    angular.module('indexControllers', ['indexServices'])
         .controller('IndexController', IndexController);
 
-	IndexController.$inject = ['$http', '$window'];
+	IndexController.$inject = ['$http', '$window', 'LoginService'];
 
-    function IndexController($http, $window) {
+    function IndexController($http, $window, LoginService) {
         var vm = this;
 
-        vm.usuarios = {
-            tiago: '111111',
-            andre: '111111',
-            marcus: '111111'
+        vm.login = login;        
+
+        vm.isLogado = LoginService.isLogado;
+
+        vm.logout = LoginService.logout;
+
+        vm.getUserName = LoginService.getUserName;
+
+        function login() {
+            LoginService.login(vm.usuarioLogin, vm.senhaLogin, function() {
+                vm.usuarioLogin = null;
+                vm.senhaLogin = null;
+            });
         }
-
-        vm.logar = logar;
-
-        function logar() {
-            $http.post('/api/v1/login', {login: vm.usuarioLogin, senha: vm.senhaLogin})
-            .success(function (response){                
-                vm.token = response.token;
-            })
-            .error(function (data) {
-                $window.alert(JSON.stringify(data));
-            })
-            //vm.usuarioLogado = vm.usuariologin;
-        }
-
-        // vm.incluirAluno = incluirAluno;
-
-        // atualizaListaAlunos();
-
-        // function atualizaListaAlunos() {
-        //     $http.get('/api/v1/alunos').success(function (response){                
-        //         vm.alunos = response;
-        //     });
-        // }
-
-        // function incluirAluno() {
-        //     var aluno = {
-        //         nome: vm.nome
-        //     }
-
-        //     $http.post('/api/v1/alunos', aluno).success(function (){
-        //         vm.nome = '';
-        //         atualizaListaAlunos();
-        //     });            
-        // }
     }
 })(angular);

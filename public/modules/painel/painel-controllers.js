@@ -8,9 +8,9 @@
 
     function IndexController($http) {
         var vm = this;
-
+        
         vm.incluirAluno = incluirAluno;
-
+        
         atualizaListaAlunos();
 
         function atualizaListaAlunos() {

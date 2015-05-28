@@ -23,8 +23,8 @@ router.post('/', function(req, res) {
     }
     
     for(var i = 0; i < db.usuarios.length; i++) {
-        if(usuario[i].login === usuarioLogin.login){
-            if(usuario[i].senha === usuarioLogin.senha) {
+        if(db.usuarios[i].login === usuarioLogin.login){
+            if(db.usuarios[i].senha === usuarioLogin.senha) {
                 res.send({token: 'sakldfhaskjdhflkasjhdf'});
                 return;
             } else {

@@ -10,15 +10,21 @@
 			<a class="navbar-brand">SisCEDEP</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			<form class="navbar-form navbar-right" ng-submit="indexCtrl.logar()">
+			<form ng-if='!indexCtrl.isLogado()' novalidate name="loginForm" class="navbar-form navbar-right" ng-submit="indexCtrl.login()">
 				<div class="form-group">
-					<input type="text" placeholder="Usuário" class="form-control" ng-model="indexCtrl.usuarioLogin">
+					<input type="text" placeholder="Usuário" class="form-control" required ng-model="indexCtrl.usuarioLogin">
 				</div>
 				<div class="form-group">
-					<input type="password" placeholder="Senha" class="form-control" ng-model="indexCtrl.senhaLogin">
+					<input type="password" placeholder="Senha" class="form-control" required ng-model="indexCtrl.senhaLogin">
 				</div>
-				<button type="submit" class="btn btn-success">Acessar</button>
+				<button type="submit" class="btn btn-success" ng-disabled='!loginForm.$valid'>Acessar</button>
 			</form>
+			<div ng-if='indexCtrl.isLogado()' class="navbar-right">				
+				<form novalidate name="loginForm" class="navbar-form" ng-submit="indexCtrl.login()">				
+					<a class="navbar-brand">Olá {{indexCtrl.getUserName()}}</a>
+					<button ng-click='indexCtrl.logout()' class="btn btn-success">Sair</button>			
+				</form>
+			</div>
 		</div>
 	</div>
 </nav>	
