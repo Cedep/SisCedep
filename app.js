@@ -25,12 +25,25 @@ connection.end();
 
 //var routes = require('./routes/index');
 var alunos = require('./routes/api/v1/alunos');
+var login = require('./routes/api/v1/login');
 
 var app = express();
 
 //TODO: Evoluir para um banco de dados real
 var db = {
-  alunos: []
+  alunos: [],
+  usuarios: [
+    {
+      nome: 'Tiago Lage Payne de Pádua',
+      login: 'tiago',
+      senha: '111111'      
+    },
+    {
+      nome: 'André da Silva Junior',
+      login: 'andre',
+      senha: '111111'      
+    }
+  ]
 };
 
 // view engine setup
@@ -53,6 +66,7 @@ app.use(function(req, res, next){
 
 //app.use('/', routes);
 app.use('/api/v1/alunos', alunos);
+app.use('/api/v1/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

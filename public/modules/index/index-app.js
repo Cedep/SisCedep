@@ -11,6 +11,9 @@
             .when('/index', {
                 templateUrl: 'index.tpl.html'
             })
+            .when('/painel', {
+                templateUrl: '../painel/painel.tpl.html'
+            })
             .otherwise({
                 redirectTo: '/index'
             });
