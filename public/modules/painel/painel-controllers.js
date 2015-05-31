@@ -1,33 +1,14 @@
 (function (angular, undefined) {
     'use strict';
+
+    //TODO: Redirecionar para index se usuário não estiver logado
     
-    angular.module('indexControllers', [])
-        .controller('IndexController', IndexController);
+    angular.module('painelControllers', [])
+        .controller('PainelController', PainelController);
 
-	IndexController.$inject = ['$http'];
+	PainelController.$inject = [];
 
-    function IndexController($http) {
-        var vm = this;
-        
-        vm.incluirAluno = incluirAluno;
-        
-        atualizaListaAlunos();
-
-        function atualizaListaAlunos() {
-            $http.get('/api/v1/alunos').success(function (response){                
-                vm.alunos = response;
-            });
-        }
-
-        function incluirAluno() {
-            var aluno = {
-                nome: vm.nome
-            }
-
-            $http.post('/api/v1/alunos', aluno).success(function (){
-                vm.nome = '';
-                atualizaListaAlunos();
-            });            
-        }
+    function PainelController() {
+        var vm = this;        
     }
 })(angular);

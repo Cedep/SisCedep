@@ -3,7 +3,8 @@
     
     angular.module('indexApp', [
             'ngRoute',
-            'indexControllers'])
+            'indexControllers',
+            'painelControllers'])
 
     .config(['$routeProvider',
         function ($routeProvider) {
