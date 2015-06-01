@@ -19,5 +19,15 @@
                 redirectTo: '/index'
             });
         }]
-    );
+    )
+    .run(function($rootScope, $location) {
+        $rootScope.$on('$routeChangeStart', function(event, next, current) {
+          if (!$rootScope.userName) {
+            // no logged user, redirect to /index
+            if (next.templateUrl !==  'index.tpl.html') {
+                $location.path('/index');
+            }
+          }
+        });
+    });
 })(angular);

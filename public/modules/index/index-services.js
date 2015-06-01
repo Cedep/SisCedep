@@ -4,9 +4,9 @@
     angular.module('indexServices', [])
     .factory('LoginService', LoginService);
 
-    LoginService.$inject = ['$http', '$window'];
+    LoginService.$inject = ['$http', '$rootScope', '$window'];
 
-    function LoginService($http, $window) {
+    function LoginService($http, $rootScope, $window) {
         var that = this;
 
         var factory = {};
@@ -15,6 +15,7 @@
             $http.post('/api/v1/login', {login: login, password: password})
             .success(function (response){               
                 that.userName = login; 
+                $rootScope.userName = login;
                 successCallback();
             })
             .error(function (data) {
@@ -34,6 +35,7 @@
             $http.post('/api/v1/logout')
             .success(function (){               
                 that.userName = null;
+                $rootScope.userName = null;
                 successCallback();
             })
             .error(function (data) {
