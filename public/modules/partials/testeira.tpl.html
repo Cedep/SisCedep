@@ -20,7 +20,7 @@
 				<button type="submit" class="btn btn-success" ng-disabled='!loginForm.$valid'>Acessar</button>
 			</form>
 			<div ng-if='indexCtrl.isLogado()' class="navbar-right">				
-				<form novalidate name="loginForm" class="navbar-form" ng-submit="indexCtrl.login()">				
+				<form novalidate name="logoutForm" class="navbar-form">				
 					<a>Olá {{indexCtrl.getUserName()}}</a>
 					<button ng-click='indexCtrl.logout()' class="btn btn-success">Sair</button>			
 				</form>

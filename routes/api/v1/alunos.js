@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 
@@ -28,10 +30,10 @@ router.post('/', function(req, res) {
     	return;
     }
 
-    novoAluno = {
+    var novoAluno = {
     	id:   1,
     	nome: req.body.nome
-    }
+    };
 
     db.alunos.forEach(function (aluno) {
     	if(aluno.id >= novoAluno.id) {

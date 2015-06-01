@@ -26,8 +26,9 @@
         }
 
         function logout() {
-            LoginService.logout();
-            $location.path('/index');
+            LoginService.logout(function() {
+                $location.path('/index');
+            });
         }
     }
 })(angular);

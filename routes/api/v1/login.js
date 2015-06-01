@@ -1,40 +1,40 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
+var helpers = require('../../../helpers');
 
-/*
- * POST login.
- */
 router.post('/', function(req, res) {
-    var db = req.db;
     
     if(!req.body.login) {
     	res.send(400, 'Preencher o nome do usuário');	
     	return;
     }
 
-    if(!req.body.senha) {
+    if(!req.body.password) {
         res.send(400, 'Preencher a senha do usuário');   
         return;
     }
 
-    var usuarioLogin = {
-        login: req.body.login,
-        senha: req.body.senha
-    }
-    
-    for(var i = 0; i < db.usuarios.length; i++) {
-        if(db.usuarios[i].login === usuarioLogin.login){
-            if(db.usuarios[i].senha === usuarioLogin.senha) {
-                res.send({token: 'sakldfhaskjdhflkasjhdf'});
-                return;
-            } else {
-                res.send(400, 'Senha não confere');
-                return;
-            }
+    helpers.authenticate(req.connPool, req.body.login, req.body.password, function (err, user) {
+        if(err) {
+            res.send(400, err.message);
+            return;
         }
-    }
 
-    res.send(400, 'Usuário não localizado');
+        if(user) {
+            req.session.regenerate(function () {
+                req.session.user = user;
+
+                res.json({
+                    login: user.login,
+                    full_name: user.full_name
+                });
+            });
+        } else {
+            res.send(400, 'Falha não esperada durante a autenticação');
+        }
+    });
 });
 
 module.exports = router;

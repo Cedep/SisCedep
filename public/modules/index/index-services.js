@@ -11,29 +11,34 @@
 
         var factory = {};
 
-        factory.login = function (login, senha, successCallback) {
-            $http.post('/api/v1/login', {login: login, senha: senha})
+        factory.login = function (login, password, successCallback) {
+            $http.post('/api/v1/login', {login: login, password: password})
             .success(function (response){               
                 that.userName = login; 
-                that.tokenAutenticacao = response.token;                
                 successCallback();
             })
             .error(function (data) {
-                $window.alert(data);
+                $window.alert(JSON.stringify(data));
             });
         };
 
         factory.isLogado = function() {
-            return !!that.tokenAutenticacao;
+            return !!that.userName;
         };
 
         factory.getUserName = function() {
             return that.userName;
         };
 
-        factory.logout = function() {
-            that.userName = null;
-            that.tokenAutenticacao = null;
+        factory.logout = function(successCallback) {            
+            $http.post('/api/v1/logout')
+            .success(function (){               
+                that.userName = null;
+                successCallback();
+            })
+            .error(function (data) {
+                $window.alert(JSON.stringify(data));
+            });
         };
 
         return factory;
