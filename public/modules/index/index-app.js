@@ -4,7 +4,8 @@
     angular.module('indexApp', [
             'ngRoute',
             'indexControllers',
-            'painelControllers'])
+            'painelControllers',
+            'usuariosControllers'])
 
     .config(['$routeProvider',
         function ($routeProvider) {
@@ -14,6 +15,9 @@
             })
             .when('/painel', {
                 templateUrl: '../painel/painel.tpl.html'
+            })
+            .when('/usuarios', {
+                templateUrl: '../usuarios/usuarios.tpl.html'
             })
             .otherwise({
                 redirectTo: '/index'

@@ -40,6 +40,7 @@ connPool.getConnection(function(err, conn) {
 var alunos = require('./routes/api/v1/alunos');
 var login = require('./routes/api/v1/login');
 var logout = require('./routes/api/v1/logout');
+var usuarios = require('./routes/api/v1/usuarios');
 
 var app = express();
 
@@ -83,6 +84,7 @@ app.use(function(req, res, next){
 app.use('/api/v1/alunos', alunos);
 app.use('/api/v1/login', login);
 app.use('/api/v1/logout', logout);
+app.use('/api/v1/usuarios', usuarios);
 
 // Rotas não encontradas retornam erro 404 (catch 404 and forward to error handler)
 app.use(function(req, res, next) {
@@ -97,6 +99,7 @@ app.use(function(req, res, next) {
 // Tratador de erros para desenvolvimento, stacktraces são enviados ao usuário
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500).json({
       message: err.message,
       error: err
@@ -106,6 +109,7 @@ if (app.get('env') === 'development') {
 
 // Tratador de erros para produção, stacktraces não são enviados ao usuário
 app.use(function(err, req, res, next) {
+  console.log(err);
   res.send(err.status || 500, err.message);
 });
 

@@ -1,0 +1,33 @@
+<br>
+<br>
+<div class"container" ng-controller="UsuariosController as usuariosCtrl">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Usuários</h1>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-4">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Login</th>
+							<th>Nome Completo</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat='usuario in usuariosCtrl.usuarios'>
+							<td>{{usuario.login}}</td>
+							<td>{{usuario.full_name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-2">
+			</div>
+		</div>
+	</div>
+</div>

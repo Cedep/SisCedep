@@ -40,8 +40,7 @@ helpers.requiredAuthentication = function (req, res, next) {
     if (req.session.user) {
         next();
     } else {
-        req.session.error = 'Accesso negado!';
-        res.redirect('/login');
+        res.send(401, 'Login necessário');
     }
 };
 
