@@ -5,25 +5,25 @@ var router = express.Router();
 var helpers = require('../../../helpers');
 
 router.post('/', function(req, res) {
-    
-    if(!req.body.login) {
-    	res.send(400, 'Preencher o nome do usuário');	
-    	return;
-    }
 
-    if(!req.body.password) {
-        res.send(400, 'Preencher a senha do usuário');   
+    if (!req.body.login) {
+        res.send(400, 'Preencher o nome do usuário');
         return;
     }
 
-    helpers.authenticate(req.connPool, req.body.login, req.body.password, function (err, user) {
-        if(err) {
+    if (!req.body.password) {
+        res.send(400, 'Preencher a senha do usuário');
+        return;
+    }
+
+    helpers.authenticate(req.connPool, req.body.login, req.body.password, function(err, user) {
+        if (err) {
             res.send(400, err.message);
             return;
         }
 
-        if(user) {
-            req.session.regenerate(function () {
+        if (user) {
+            req.session.regenerate(function() {
                 req.session.user = user;
 
                 res.json({
