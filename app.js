@@ -17,6 +17,11 @@ var connPool = mysql.createPool({
 });
 
 connPool.getConnection(function(err, conn) {
+    if(err) {
+        console.log('Não foi possível estabelecer uma conexão com o banco de dados, ele foi iniciado?');
+        throw err;
+    }
+        
     var sql = 'SELECT * FROM cedep_schema.user_table';
 
     conn.query(sql, function(err, rows, fields) {
